@@ -18,11 +18,16 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
-    background: #0a0e27;
-    color: var(--text);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
+body{
+    background:#0a0e27;
+    color:var(--text);
+    font-family:'Vazirmatn',sans-serif;
+    overflow-x:hidden;
+    font-weight:400;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
 }
 
 .container {
