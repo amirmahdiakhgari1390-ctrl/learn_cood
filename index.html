@@ -1,70 +1,180 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
+    <!-- Meta Tags for SEO -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>وب‌سایت نویسی - طراحی و توسعه وب حرفه‌ای</title>
+    <meta name="description" content="طراحی و توسعه وب حرفه‌ای. سایت‌های مدرن، بهینه و امن برای کسب‌وکار شما. بیش از 150+ پروژه موفق.">
+    <meta name="keywords" content="طراحی سایت, توسعه وب, UI/UX, React, Vue, وبسایت نویسی, طراحی پورتفولیو">
+    <meta name="author" content="WebCoding Studio">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="طراحی و توسعه وب حرفه‌ای - WebCoding">
+    <meta property="og:description" content="سایت‌های حرفه‌ای برای کسب‌وکار شما">
+    <meta property="og:image" content="https://learn-cood.onrender.com/og-image.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <title>WebCoding Studio - طراحی و توسعه وب حرفه‌ای | Professional Web Design</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%231a73e8'>&lt;/&gt;</text></svg>">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-<body dir="rtl">
-    <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="gradient-blob blob-1"></div>
-        <div class="gradient-blob blob-2"></div>
-        <div class="gradient-blob blob-3"></div>
-    </div>
-
+<body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
+        <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-code"></i> وب‌سایت نویسی
+                <span class="logo-icon">&lt;/&gt;</span>
+                <span class="logo-text">WebCoding</span>
             </div>
+            
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
             <ul class="nav-links">
-                <li><a href="#home" data-nav>خانه</a></li>
-                <li><a href="#services" data-nav>خدمات</a></li>
-                <li><a href="#portfolio" data-nav>نمونه کارها</a></li>
-                <li><a href="#contact" data-nav>تماس</a></li>
+                <li><a href="#home" class="nav-link">خانه</a></li>
+                <li><a href="#services" class="nav-link">خدمات</a></li>
+                <li><a href="#portfolio" class="nav-link">نمونه کارها</a></li>
+                <li><a href="#about" class="nav-link">درباره ما</a></li>
+                <li><a href="#contact" class="nav-link">تماس</a></li>
+                <li><button class="lang-toggle" id="langToggle">EN</button></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Parallax -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <div class="text-container">
-                <h1 class="glitch" data-text="طراحی و توسعه وب">
-                    طراحی و توسعه وب
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-word">طراحی</span>
+                    <span class="title-word highlight">و توسعه</span>
+                    <span class="title-word">وب حرفه‌ای</span>
                 </h1>
-                <p class="subtitle">سایت‌های حرفه‌ای و مدرن برای کسب‌وکار شما</p>
+                <p class="hero-subtitle">سایت‌های مدرن و سریع که کسب‌وکار شما را به سطح جدیدی می‌برند</p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollTo('#contact')">
-                        <span>شروع پروژه</span>
-                    </button>
-                    <button class="btn btn-secondary" onclick="scrollTo('#portfolio')">
-                        نمونه کارها
-                    </button>
+                    <button class="btn btn-primary" onclick="scrollToSection('#contact')">شروع پروژه</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('#portfolio')">نمونه کارها</button>
+                </div>
+            </div>
+            <div class="hero-animation">
+                <div class="floating-card card-1"></div>
+                <div class="floating-card card-2"></div>
+                <div class="floating-card card-3"></div>
+                <div class="code-animation">
+                    <div class="code-line">
+                        <span class="code-keyword">const</span>
+                        <span class="code-var">project</span>
+                        <span class="code-op">=</span>
+                        <span class="code-string">"Amazing"</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="hero-animation">
-            <div class="floating-card card-1">
-                <i class="fas fa-laptop-code"></i>
+        <div class="scroll-indicator">
+            <span>اسکرول کنید</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">درباره <span class="highlight">ما</span></h2>
+                <p class="section-subtitle">بیش از 8 سال تجربه در طراحی و توسعه وب</p>
             </div>
-            <div class="floating-card card-2">
-                <i class="fas fa-mobile-alt"></i>
-            </div>
-            <div class="floating-card card-3">
-                <i class="fas fa-palette"></i>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>سازمان ما متخصص در ایجاد سایت‌های حرفه‌ای، سریع و امن است. هر پروژه با توجه به نیازهای خاص کلاینت طراحی می‌شود.</p>
+                    <p>ما از آخرین تکنولوژی‌ها استفاده می‌کنیم تا بهترین نتیجه را برای شما تضمین کنیم.</p>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="150">0</span>
+                            <span class="stat-label">پروژه انجام‌شده</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="98">0</span>
+                            <span class="stat-label">% رضایت مشتری</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="8">0</span>
+                            <span class="stat-label">سال تجربه</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="50">0</span>
+                            <span class="stat-label">کلاینت فعال</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills">
+                    <div class="skill-group">
+                        <h3>تکنولوژی‌های Frontend</h3>
+                        <div class="skill-bars">
+                            <div class="skill">
+                                <span>React / Vue</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>HTML / CSS</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 98%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>JavaScript / TypeScript</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>UI/UX Design</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 96%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-group">
+                        <h3>تکنولوژی‌های Backend</h3>
+                        <div class="skill-bars">
+                            <div class="skill">
+                                <span>Node.js / Express</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>Database (MongoDB, SQL)</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <span>API Development</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 94%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -72,60 +182,46 @@
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
-            <h2 class="section-title">خدمات ما</h2>
+            <div class="section-header">
+                <h2 class="section-title">خدمات <span class="highlight">ما</span></h2>
+                <p class="section-subtitle">خدمات جامع و حرفه‌ای برای تمام نیازهای وب شما</p>
+            </div>
+            
             <div class="services-grid">
-                <div class="service-card" data-service>
-                    <div class="service-icon">
-                        <i class="fas fa-pencil-ruler"></i>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
                     <h3>طراحی UI/UX</h3>
-                    <p>طراحی رابط کاربری زیبا و کارآمد برای تجربه بهتر کاربر</p>
-                    <div class="card-line"></div>
+                    <p>طراحی رابط کاربری زیبا و کارآمد با تجربهٔ بهتر برای کاربران</p>
                 </div>
-
-                <div class="service-card" data-service>
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
                     <h3>توسعه وب</h3>
-                    <p>کدنویسی حرفه‌ای با بهترین فن‌آوری‌های روز دنیا</p>
-                    <div class="card-line"></div>
+                    <p>کدنویسی حرفه‌ای با بهترین فن‌آوری‌های روز دنیا و استانداردهای بین‌المللی</p>
                 </div>
-
-                <div class="service-card" data-service>
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
                     <h3>Responsive Design</h3>
-                    <p>طراحی سایت‌های سازگار با تمام دستگاه‌ها</p>
-                    <div class="card-line"></div>
+                    <p>طراحی سایت‌های سازگار با تمام دستگاه‌ها و اندازه صفحه‌ها</p>
                 </div>
-
-                <div class="service-card" data-service>
-                    <div class="service-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
                     <h3>بهینه‌سازی عملکرد</h3>
-                    <p>سایت‌های سریع و بهینه برای بهترین تجربه</p>
-                    <div class="card-line"></div>
+                    <p>سایت‌های سریع و بهینه برای بهترین تجربهٔ کاربر و رتبهٔ بالا در گوگل</p>
                 </div>
-
-                <div class="service-card" data-service>
-                    <div class="service-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
                     <h3>امنیت وب</h3>
-                    <p>سایت‌های امن و محافظ شده از حملات</p>
-                    <div class="card-line"></div>
+                    <p>سایت‌های امن و محافظ شدهٔ از حملات و نقاط ضعف امنیتی</p>
                 </div>
-
-                <div class="service-card" data-service>
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🛠️</div>
                     <h3>پشتیبانی 24/7</h3>
-                    <p>پشتیبانی مستمر و حل مسائل تکنیکی</p>
-                    <div class="card-line"></div>
+                    <p>پشتیبانی مستمر و حل سریع مسائل تکنیکی برای سایت شما</p>
                 </div>
             </div>
         </div>
@@ -134,95 +230,107 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2 class="section-title">نمونه کارها</h2>
+            <div class="section-header">
+                <h2 class="section-title">نمونه <span class="highlight">کارها</span></h2>
+                <p class="section-subtitle">پروژه‌های موفق و قابل افتخار</p>
+            </div>
+            
             <div class="portfolio-grid">
-                <div class="portfolio-item" data-portfolio>
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad1)'/%3E%3Ctext x='50%25' y='50%25' font-size='36' fill='white' text-anchor='middle' dominant-baseline='middle'%3E🛍️ فروشگاه آنلاین%3C/text%3E%3C/svg%3E" alt="پروژه 1">
-                        <div class="overlay">
-                            <a href="#" class="view-btn">مشاهده</a>
-                        </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="portfolio-icon">🛍️</div>
                     </div>
-                    <h3>فروشگاه آنلاین لباس</h3>
-                    <p>سایت فروشگاه با سیستم پرداخت</p>
-                </div>
-
-                <div class="portfolio-item" data-portfolio>
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2306b6d4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%230891b2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad2)'/%3E%3Ctext x='50%25' y='50%25' font-size='36' fill='white' text-anchor='middle' dominant-baseline='middle'%3E📱 اپلیکیشن موبایل%3C/text%3E%3C/svg%3E" alt="پروژه 2">
-                        <div class="overlay">
-                            <a href="#" class="view-btn">مشاهده</a>
+                    <div class="portfolio-content">
+                        <h3>فروشگاه آنلاین لباس</h3>
+                        <p>سایت فروشگاه آنلاین با سیستم پرداخت ایمن و مدیریت انبار</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Stripe</span>
                         </div>
+                        <a href="#" class="portfolio-link">مشاهده بیشتر →</a>
                     </div>
-                    <h3>اپلیکیشن آب‌وهوا</h3>
-                    <p>برنامه پیش‌بینی وضع آب‌وهوا</p>
                 </div>
-
-                <div class="portfolio-item" data-portfolio>
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ec4899;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23f43f5e;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad3)'/%3E%3Ctext x='50%25' y='50%25' font-size='36' fill='white' text-anchor='middle' dominant-baseline='middle'%3E💄 سایت آرایشی%3C/text%3E%3C/svg%3E" alt="پروژه 3">
-                        <div class="overlay">
-                            <a href="#" class="view-btn">مشاهده</a>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="portfolio-icon">🌤️</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>اپلیکیشن آب‌وهوا</h3>
+                        <p>برنامهٔ پیش‌بینی وضع آب‌وهوا با رابط زیبا و اطلاعات دقیق</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">API</span>
+                            <span class="tag">Maps</span>
                         </div>
+                        <a href="#" class="portfolio-link">مشاهده بیشتر →</a>
                     </div>
-                    <h3>سایت شرکت آرایشی</h3>
-                    <p>پورتفولیو محصولات و سرویس‌ها</p>
                 </div>
-
-                <div class="portfolio-item" data-portfolio>
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2310b981;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2334d399;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad4)'/%3E%3Ctext x='50%25' y='50%25' font-size='36' fill='white' text-anchor='middle' dominant-baseline='middle'%3E🏥 پورتال درمانی%3C/text%3E%3C/svg%3E" alt="پروژه 4">
-                        <div class="overlay">
-                            <a href="#" class="view-btn">مشاهده</a>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="portfolio-icon">💄</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>سایت شرکت آرایشی</h3>
+                        <p>پورتفولیو محصولات و سرویس‌های آرایشی با گالری عکس</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">Figma</span>
+                            <span class="tag">SEO</span>
                         </div>
+                        <a href="#" class="portfolio-link">مشاهده بیشتر →</a>
                     </div>
-                    <h3>پورتال درمانی آنلاین</h3>
-                    <p>پلتفرم رزرو نوبت پزشک</p>
                 </div>
-
-                <div class="portfolio-item" data-portfolio>
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f59e0b;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23d97706;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad5)'/%3E%3Ctext x='50%25' y='50%25' font-size='36' fill='white' text-anchor='middle' dominant-baseline='middle'%3E🎓 پلتفرم آموزش%3C/text%3E%3C/svg%3E" alt="پروژه 5">
-                        <div class="overlay">
-                            <a href="#" class="view-btn">مشاهده</a>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="portfolio-icon">⚕️</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>پورتال درمانی آنلاین</h3>
+                        <p>پلتفرم رزرو نوبت پزشک با سیستم مدیریت قوی</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Database</span>
+                            <span class="tag">Payment</span>
                         </div>
+                        <a href="#" class="portfolio-link">مشاهده بیشتر →</a>
                     </div>
-                    <h3>پلتفرم یادگیری آنلاین</h3>
-                    <p>کلاس‌های آنلاین و دوره‌های آموزشی</p>
                 </div>
-
-                <div class="portfolio-item" data-portfolio>
-                    <div class="portfolio-image">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad6' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236366f1;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad6)'/%3E%3Ctext x='50%25' y='50%25' font-size='36' fill='white' text-anchor='middle' dominant-baseline='middle'%3E📊 داشبورد تحلیلی%3C/text%3E%3C/svg%3E" alt="پروژه 6">
-                        <div class="overlay">
-                            <a href="#" class="view-btn">مشاهده</a>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="portfolio-icon">📚</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>پلتفرم یادگیری آنلاین</h3>
+                        <p>کلاس‌های آنلاین و دوره‌های آموزشی با سیستم بدهی و ارزیابی</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Laravel</span>
+                            <span class="tag">Video</span>
+                            <span class="tag">Certificate</span>
                         </div>
+                        <a href="#" class="portfolio-link">مشاهده بیشتر →</a>
                     </div>
-                    <h3>داشبورد مدیریتی</h3>
-                    <p>نمایش و تحلیل داده‌های تجاری</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stat-item" data-stat>
-                <div class="stat-number">150+</div>
-                <div class="stat-text">پروژه انجام‌شده</div>
-            </div>
-            <div class="stat-item" data-stat>
-                <div class="stat-number">98%</div>
-                <div class="stat-text">رضایت مشتری</div>
-            </div>
-            <div class="stat-item" data-stat>
-                <div class="stat-number">8+</div>
-                <div class="stat-text">سال تجربه</div>
-            </div>
-            <div class="stat-item" data-stat>
-                <div class="stat-number">50+</div>
-                <div class="stat-text">کلاینت فعال</div>
+                
+                <div class="portfolio-card">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <div class="portfolio-icon">📊</div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>داشبورد مدیریتی</h3>
+                        <p>نمایش و تحلیل داده‌های تجاری با نمودارهای interactive</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Chart.js</span>
+                            <span class="tag">Analytics</span>
+                            <span class="tag">Real-time</span>
+                        </div>
+                        <a href="#" class="portfolio-link">مشاهده بیشتر →</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -230,27 +338,34 @@
     <!-- Process Section -->
     <section class="process">
         <div class="container">
-            <h2 class="section-title">روند کار ما</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">1</div>
+            <div class="section-header">
+                <h2 class="section-title">روند <span class="highlight">کار</span> ما</h2>
+                <p class="section-subtitle">4 مرحله ساده برای پروژهٔ موفق</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
                     <h3>مشاوره و برنامه‌ریزی</h3>
-                    <p>درک نیازهای شما و طراحی استراتژی مناسب</p>
+                    <p>درک عمیق از نیازهای شما و طراحی استراتژی مناسب برای موفقیت پروژه</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">2</div>
+                <div class="step-connector">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
                     <h3>طراحی و نمونه‌سازی</h3>
-                    <p>ایجاد طرح‌های زیبا و کارآمد</p>
+                    <p>ایجاد طرح‌های زیبا و کارآمد با رعایت استانداردهای UX/UI</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">3</div>
+                <div class="step-connector">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
                     <h3>توسعه و کدنویسی</h3>
-                    <p>پیاده‌سازی کد حرفه‌ای و مدرن</p>
+                    <p>پیاده‌سازی کد حرفه‌ای و مدرن با تمام بهترین‌ها</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">4</div>
+                <div class="step-connector">→</div>
+                <div class="step">
+                    <div class="step-number">4</div>
                     <h3>تست و بهبود</h3>
-                    <p>بررسی دقیق و رفع مشکلات</p>
+                    <p>بررسی دقیق و رفع مشکلات برای تحویل محصول بی‌عیب</p>
                 </div>
             </div>
         </div>
@@ -259,33 +374,70 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">تماس با ما</h2>
-            <div class="contact-wrapper">
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="نام شما" required>
-                        <input type="email" placeholder="ایمیل شما" required>
-                    </div>
-                    <textarea placeholder="پیام شما" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">ارسال پیام</button>
-                </form>
+            <div class="section-header">
+                <h2 class="section-title">تماس با <span class="highlight">ما</span></h2>
+                <p class="section-subtitle">آماده‌ایم تا بیشتر درباره پروژهٔ شما بشنویم</p>
+            </div>
+            
+            <div class="contact-content">
                 <div class="contact-info">
-                    <div class="info-box">
-                        <i class="fas fa-envelope"></i>
-                        <h4>ایمیل</h4>
-                        <p>info@website.com</p>
+                    <div class="info-card">
+                        <div class="info-icon">📧</div>
+                        <h3>ایمیل</h3>
+                        <p><a href="mailto:info@webcoding.ir">info@webcoding.ir</a></p>
                     </div>
-                    <div class="info-box">
-                        <i class="fas fa-phone"></i>
-                        <h4>تلفن</h4>
-                        <p>09123456789</p>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">📱</div>
+                        <h3>تلفن</h3>
+                        <p><a href="tel:+989123456789">+98 912 345 6789</a></p>
                     </div>
-                    <div class="info-box">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h4>آدرس</h4>
-                        <p>تهران، خیابان آزادی</p>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h3>آدرس</h3>
+                        <p>تهران، خیابان آزادی، میدان فردوسی</p>
+                    </div>
+                    
+                    <div class="social-links">
+                        <h3>شبکه‌های اجتماعی</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon" title="LinkedIn">in</a>
+                            <a href="#" class="social-icon" title="GitHub">gh</a>
+                            <a href="#" class="social-icon" title="Twitter">tw</a>
+                            <a href="#" class="social-icon" title="Instagram">ig</a>
+                        </div>
                     </div>
                 </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="نام کامل" required>
+                        <span class="form-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="آدرس ایمیل" required>
+                        <span class="form-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="شماره تلفن" required>
+                        <span class="form-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="subject" placeholder="موضوع پروژه" required>
+                        <span class="form-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="message" placeholder="توضیحات پروژه..." rows="5" required></textarea>
+                        <span class="form-error"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-submit">ارسال پیام</button>
+                </form>
             </div>
         </div>
     </section>
@@ -295,34 +447,57 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>وب‌سایت نویسی</h4>
-                    <p>تخصص ما طراحی و توسعه سایت‌های حرفه‌ای است</p>
+                    <h4>درباره WebCoding</h4>
+                    <p>تخصص ما طراحی و توسعه سایت‌های حرفه‌ای، مدرن و ایمن است. هر پروژه با محبت و دقت انجام می‌شود.</p>
                 </div>
+                
                 <div class="footer-section">
                     <h4>پیوند‌های سریع</h4>
                     <ul>
                         <li><a href="#home">خانه</a></li>
                         <li><a href="#services">خدمات</a></li>
-                        <li><a href="#portfolio">نمونه‌کار</a></li>
+                        <li><a href="#portfolio">نمونه کارها</a></li>
                         <li><a href="#contact">تماس</a></li>
                     </ul>
                 </div>
+                
+                <div class="footer-section">
+                    <h4>خدمات</h4>
+                    <ul>
+                        <li><a href="#services">طراحی UI/UX</a></li>
+                        <li><a href="#services">توسعه وب</a></li>
+                        <li><a href="#services">Responsive Design</a></li>
+                        <li><a href="#services">بهینه‌سازی</a></li>
+                    </ul>
+                </div>
+                
                 <div class="footer-section">
                     <h4>شبکه‌های اجتماعی</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                    <div class="social-icons">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">GitHub</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
                     </div>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 وب‌سایت نویسی. تمام حقوق محفوظ است.</p>
+                <p>&copy; 2024 WebCoding Studio. تمام حقوق محفوظ است.</p>
+                <div class="footer-links">
+                    <a href="#">سیاست حریم‌خصوصی</a>
+                    <span>|</span>
+                    <a href="#">شرایط استفاده</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script src="script-web.js"></script>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" title="برو به بالا">
+        ↑
+    </button>
+
+    <script src="script.js"></script>
 </body>
 </html>
