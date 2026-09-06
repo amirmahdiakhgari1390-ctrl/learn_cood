@@ -33,7 +33,7 @@ html {
 body {
     font-family: 'Vazirmatn', 'Poppins', sans-serif;
     color: var(--text-dark);
-    background-color: var(--text-white);
+    background-color: var(--text-black);
     line-height: 1.6;
     overflow-x: hidden;
 }
