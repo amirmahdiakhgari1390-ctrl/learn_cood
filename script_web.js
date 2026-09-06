@@ -1,296 +1,487 @@
-// Mobile Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+// ============================================
+// GLOBAL VARIABLES & DOM ELEMENTS
+// ============================================
 
-hamburger.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    animateHamburger();
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+const scrollToTopBtn = document.getElementById('scrollToTop');
+const contactForm = document.getElementById('contactForm');
+const langToggle = document.getElementById('langToggle');
+
+let currentLanguage = 'fa';
+const translations = {
+    fa: {
+        navHome: 'خانه',
+        navServices: 'خدمات',
+        navPortfolio: 'نمونه کارها',
+        navAbout: 'درباره ما',
+        navContact: 'تماس',
+        heroTitle1: 'طراحی',
+        heroTitle2: 'و توسعه',
+        heroTitle3: 'وب حرفه‌ای',
+        successMessage: 'پیام شما با موفقیت ارسال شد! ✓',
+        errorMessage: 'لطفا تمام فیلدها را پر کنید'
+    },
+    en: {
+        navHome: 'Home',
+        navServices: 'Services',
+        navPortfolio: 'Portfolio',
+        navAbout: 'About',
+        navContact: 'Contact',
+        heroTitle1: 'Professional',
+        heroTitle2: 'Web Design',
+        heroTitle3: '& Development',
+        successMessage: 'Your message sent successfully! ✓',
+        errorMessage: 'Please fill all fields'
+    }
+};
+
+// ============================================
+// INITIALIZATION
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeEventListeners();
+    observeElements();
+    startCountAnimation();
 });
 
-function animateHamburger() {
-    const spans = hamburger.querySelectorAll('span');
-    if (navLinks.style.display === 'flex') {
-        spans[0].style.transform = 'rotate(45deg) translate(10px, 10px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
-    } else {
-        spans.forEach(span => {
-            span.style.transform = 'none';
-            span.style.opacity = '1';
+// ============================================
+// EVENT LISTENERS
+// ============================================
+
+function initializeEventListeners() {
+    // Mobile Menu Toggle
+    navToggle.addEventListener('click', toggleMobileMenu);
+    
+    // Nav Links Click
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (link.getAttribute('href').startsWith('#')) {
+                closeMobileMenu();
+            }
         });
+    });
+    
+    // Scroll to Top Button
+    window.addEventListener('scroll', handleScrollToTop);
+    scrollToTopBtn.addEventListener('click', scrollToTop);
+    
+    // Contact Form
+    contactForm.addEventListener('submit', handleFormSubmit);
+    
+    // Language Toggle
+    langToggle.addEventListener('click', toggleLanguage);
+    
+    // Prevent body scroll on mobile menu
+    document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+}
+
+// ============================================
+// MOBILE MENU FUNCTIONS
+// ============================================
+
+function toggleMobileMenu() {
+    navLinks.classList.toggle('active');
+    navToggle.classList.toggle('active');
+}
+
+function closeMobileMenu() {
+    navLinks.classList.remove('active');
+    navToggle.classList.remove('active');
+}
+
+// ============================================
+// SCROLL TO TOP FUNCTIONS
+// ============================================
+
+function handleScrollToTop() {
+    if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('show');
+    } else {
+        scrollToTopBtn.classList.remove('show');
     }
 }
 
-// Close menu on link click
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.style.display = 'none';
-        hamburger.querySelectorAll('span').forEach(span => {
-            span.style.transform = 'none';
-            span.style.opacity = '1';
-        });
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
     });
-});
+}
 
-// Smooth Scroll Function
-function scrollTo(selector) {
+// ============================================
+// SMOOTH SCROLL TO SECTION
+// ============================================
+
+function scrollToSection(selector) {
     const element = document.querySelector(selector);
     if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+        closeMobileMenu();
     }
 }
 
-// Parallax Effect
-window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset;
-    const blobs = document.querySelectorAll('.gradient-blob');
+// ============================================
+// FORM VALIDATION & SUBMISSION
+// ============================================
 
-    blobs.forEach((blob, index) => {
-        const speed = 0.5 + (index * 0.1);
-        blob.style.transform = `translateY(${scrollY * speed}px)`;
-    });
-});
-
-// Navbar Shadow on Scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.borderBottomColor = 'rgba(99, 102, 241, 0.5)';
-    } else {
-        navbar.style.borderBottomColor = 'rgba(99, 102, 241, 0.2)';
-    }
-});
-
-// Intersection Observer for Animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
+function validateForm() {
+    let isValid = true;
+    const formGroups = contactForm.querySelectorAll('.form-group');
+    
+    formGroups.forEach(group => {
+        const input = group.querySelector('input, textarea');
+        const error = group.querySelector('.form-error');
+        
+        // Remove previous error state
+        group.classList.remove('error');
+        error.textContent = '';
+        
+        // Validate
+        if (!input.value.trim()) {
+            group.classList.add('error');
+            error.textContent = 'این فیلد الزامی است';
+            isValid = false;
+            return;
         }
-    });
-}, observerOptions);
-
-// Observe elements
-document.querySelectorAll('[data-service]').forEach(el => observer.observe(el));
-document.querySelectorAll('[data-portfolio]').forEach(el => observer.observe(el));
-document.querySelectorAll('[data-stat]').forEach(el => observer.observe(el));
-
-// Contact Form Submission
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const inputs = this.querySelectorAll('input, textarea');
-        const submitBtn = this.querySelector('.btn-primary');
-
-        // Validation
-        let isValid = true;
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
+        
+        // Email validation
+        if (input.type === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value.trim())) {
+                group.classList.add('error');
+                error.textContent = 'آدرس ایمیل معتبر نیست';
                 isValid = false;
-                input.style.borderColor = '#ec4899';
-            } else {
-                input.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+            }
+        }
+        
+        // Phone validation
+        if (input.type === 'tel') {
+            const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+            if (!phoneRegex.test(input.value.trim())) {
+                group.classList.add('error');
+                error.textContent = 'شماره تلفن معتبر نیست';
+                isValid = false;
+            }
+        }
+    });
+    
+    return isValid;
+}
+
+async function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+        showNotification(translations[currentLanguage].errorMessage, 'error');
+        return;
+    }
+    
+    // Get form data
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Simulate form submission
+    const submitBtn = contactForm.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'در حال ارسال...';
+    submitBtn.disabled = true;
+    
+    try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Success
+        showNotification(translations[currentLanguage].successMessage, 'success');
+        contactForm.reset();
+        
+        // Log form data (in real scenario, send to server)
+        console.log('Form Data:', formData);
+        
+    } catch (error) {
+        showNotification('خطا در ارسال پیام', 'error');
+        console.error('Form Error:', error);
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+}
+
+// ============================================
+// NOTIFICATION SYSTEM
+// ============================================
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${type === 'success' ? '#43e97b' : type === 'error' ? '#f5576c' : '#667eea'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        z-index: 2000;
+        animation: slideInUp 0.4s ease;
+        font-weight: 600;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove
+    setTimeout(() => {
+        notification.style.animation = 'slideOutDown 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 3000);
+}
+
+// ============================================
+// INTERSECTION OBSERVER FOR ANIMATIONS
+// ============================================
+
+function observeElements() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = entry.target.dataset.animation || 'fadeInUp 0.8s ease forwards';
+                observer.unobserve(entry.target);
             }
         });
-
-        if (isValid) {
-            // Success animation
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '✓ پیام شما ارسال شد';
-            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #34d399)';
-
-            // Clear form
-            this.reset();
-
-            // Reset button
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-            }, 3000);
-        }
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.service-card, .portfolio-card, .stat-item, .step, .info-card').forEach(el => {
+        observer.observe(el);
     });
 }
 
-// Button Ripple Effect
-document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
+// ============================================
+// ANIMATED NUMBER COUNTER
+// ============================================
 
-        ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            left: ${x}px;
-            top: ${y}px;
-            pointer-events: none;
-            animation: ripple 0.6s ease-out;
-        `;
-
-        this.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-    });
-});
-
-// Add ripple animation to style
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Portfolio item hover effect
-document.querySelectorAll('.portfolio-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px)';
-    });
-
-    item.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-// Glitch text effect
-const glitchText = document.querySelector('.glitch');
-if (glitchText) {
-    setInterval(() => {
-        if (Math.random() > 0.95) {
-            glitchText.style.textShadow = `
-                -3px 0 #ec4899,
-                3px 0 #6366f1
-            `;
-            setTimeout(() => {
-                glitchText.style.textShadow = 'none';
-            }, 50);
-        }
-    }, 100);
+function startCountAnimation() {
+    const counters = document.querySelectorAll('.stat-number');
+    
+    const observerOptions = {
+        threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.dataset.count);
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+                observer.unobserve(counter);
+            }
+        });
+    }, observerOptions);
+    
+    counters.forEach(counter => observer.observe(counter));
 }
 
-// Number Counter for Stats
-function animateCounter(element) {
-    const target = parseInt(element.textContent);
-    const increment = target / 30;
-    let current = 0;
+// ============================================
+// LANGUAGE TOGGLE
+// ============================================
 
-    const counter = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target + '+';
-            clearInterval(counter);
+function toggleLanguage() {
+    currentLanguage = currentLanguage === 'fa' ? 'en' : 'fa';
+    
+    // Update button text
+    langToggle.textContent = currentLanguage === 'fa' ? 'EN' : 'FA';
+    
+    // Update HTML direction
+    document.documentElement.dir = currentLanguage === 'fa' ? 'rtl' : 'ltr';
+    document.documentElement.lang = currentLanguage;
+    
+    // Animate change
+    langToggle.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+        langToggle.style.transform = 'scale(1)';
+    }, 300);
+    
+    // Save preference
+    localStorage.setItem('preferredLanguage', currentLanguage);
+    
+    console.log('Language changed to:', currentLanguage);
+}
+
+// ============================================
+// PAGE LOAD ANIMATIONS
+// ============================================
+
+// Add animation to page load
+window.addEventListener('load', () => {
+    document.body.style.animation = 'fadeIn 0.6s ease';
+});
+
+// ============================================
+// PERFORMANCE OPTIMIZATION
+// ============================================
+
+// Lazy load images
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.style.opacity = '1';
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// ============================================
+// SMOOTH SCROLL POLYFILL
+// ============================================
+
+function smoothScroll(target) {
+    const element = document.querySelector(target);
+    if (!element) return;
+    
+    const start = window.scrollY;
+    const end = element.offsetTop;
+    const distance = end - start;
+    const duration = 1000;
+    let progress = 0;
+    
+    const easeInOutQuad = (t) => {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    };
+    
+    const scroll = () => {
+        progress += 50 / duration;
+        if (progress < 1) {
+            window.scrollY = start + distance * easeInOutQuad(progress);
+            requestAnimationFrame(scroll);
         } else {
-            element.textContent = Math.floor(current) + '+';
+            window.scrollY = end;
         }
-    }, 30);
+    };
+    
+    scroll();
 }
 
-// Observe stats for counter animation
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statNumber = entry.target.querySelector('.stat-number');
-            if (statNumber && !statNumber.dataset.counted) {
-                animateCounter(statNumber);
-                statNumber.dataset.counted = 'true';
-            }
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
+// ============================================
+// KEYBOARD SHORTCUTS
+// ============================================
 
-document.querySelectorAll('.stat-item').forEach(stat => {
-    statsObserver.observe(stat);
-});
-
-// Service card click effect
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 20px 60px rgba(99, 102, 241, 0.4)';
-    });
-
-    card.addEventListener('mouseleave', function() {
-        this.style.boxShadow = 'none';
-    });
-});
-
-// Responsive Navigation
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        navLinks.style.display = 'flex';
-    } else {
-        navLinks.style.display = 'none';
+document.addEventListener('keydown', (e) => {
+    // ESC to close mobile menu
+    if (e.key === 'Escape') {
+        closeMobileMenu();
+    }
+    
+    // Ctrl+Home to scroll to top
+    if (e.ctrlKey && e.key === 'Home') {
+        scrollToTop();
     }
 });
 
-// Active link highlighting
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function() {
-        document.querySelectorAll('.nav-links a').forEach(l => {
-            l.style.color = '';
+// ============================================
+// PERFORMANCE MONITORING
+// ============================================
+
+if ('PerformanceObserver' in window) {
+    try {
+        const observer = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+                console.log(`Performance: ${entry.name} - ${entry.duration.toFixed(2)}ms`);
+            }
         });
-        this.style.color = 'var(--primary)';
+        observer.observe({ entryTypes: ['measure', 'navigation'] });
+    } catch (e) {
+        console.log('Performance monitoring not supported');
+    }
+}
+
+// ============================================
+// RESTORE LANGUAGE PREFERENCE
+// ============================================
+
+window.addEventListener('load', () => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage && savedLanguage !== currentLanguage) {
+        currentLanguage = savedLanguage;
+        langToggle.textContent = currentLanguage === 'fa' ? 'EN' : 'FA';
+        document.documentElement.dir = currentLanguage === 'fa' ? 'rtl' : 'ltr';
+        document.documentElement.lang = currentLanguage;
+    }
+});
+
+// ============================================
+// DYNAMIC FORM FIELD STYLING
+// ============================================
+
+document.querySelectorAll('.form-group input, .form-group textarea').forEach(field => {
+    field.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'scale(1.02)';
+    });
+    
+    field.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'scale(1)';
     });
 });
 
-// Scroll reveal for fade-in elements
-const revealElements = () => {
-    const reveals = document.querySelectorAll('[data-service], [data-portfolio], [data-stat]');
+// ============================================
+// PARALLAX EFFECT (Optional Enhancement)
+// ============================================
 
-    reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-
-        if (elementTop < windowHeight - elementVisible) {
-            element.classList.add('reveal');
-        }
-    });
-};
-
-window.addEventListener('scroll', revealElements);
-revealElements(); // Initial call
-
-// Portfolio filter animation
-document.querySelectorAll('.portfolio-image').forEach(image => {
-    image.addEventListener('mouseenter', function() {
-        const img = this.querySelector('img');
-        img.style.filter = 'brightness(1.1) contrast(1.1)';
-    });
-
-    image.addEventListener('mouseleave', function() {
-        const img = this.querySelector('img');
-        img.style.filter = 'brightness(1) contrast(1)';
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const parallaxElements = document.querySelectorAll('[data-parallax]');
+    
+    parallaxElements.forEach(el => {
+        const speed = el.dataset.parallax || 0.5;
+        el.style.transform = `translateY(${scrollY * speed}px)`;
     });
 });
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Website loaded successfully!');
+// ============================================
+// CONSOLE MESSAGES
+// ============================================
 
-    // Add smooth transitions to all links
-    document.querySelectorAll('a[data-nav]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = link.getAttribute('href');
-            scrollTo(target);
-        });
-    });
-});
+console.log('%c🎨 WebCoding Studio', 'font-size: 20px; color: #1a73e8; font-weight: bold;');
+console.log('%c✨ Welcome to our portfolio!', 'font-size: 14px; color: #667eea;');
+console.log('%c📧 Contact: info@webcoding.ir', 'font-size: 12px; color: #666;');
